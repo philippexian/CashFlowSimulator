@@ -1,0 +1,724 @@
+
+
+	/*public Calendar EDateFromNextPaymentDate(Calendar nextPaymentDate, int periodNumber){
+		if(this.periodicity!='I'){
+			return DateCalcul.EDate(nextPaymentDate, periodNumber-1, periodicity);
+		}
+
+		else{
+			return this.endDate;
+		}
+	}*/
+	
+	/*public int calculNbPeriods(){	
+		if(this.nextPaymentDate==null){
+			nextPaymentDate=calculNextPaymentDate(startDate);
+
+		}
+		//this part is to prevent the case that the next payment date is null
+		return DateCalcul.difDate(nextPaymentDate, endDate, periodicity);
+    }*/
+	
+	
+	/*public static Calendar calculEndDate(Calendar startDate, int[] maturity){
+		Calendar endDate=new GregorianCalendar(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH));
+		endDate.add(Calendar.YEAR, maturity[0]);
+		endDate.add(Calendar.MONTH, maturity[1]);
+		endDate.add(Calendar.DAY_OF_MONTH, maturity[2]);
+		return endDate;
+	}
+	
+	public static Calendar calculEndDate(Calendar startDate, int residualMonths){
+		Calendar endDate=new GregorianCalendar(startDate.get(Calendar.YEAR), startDate.get(Calendar.MONTH), startDate.get(Calendar.DAY_OF_MONTH));
+		endDate.add(Calendar.MONTH, residualMonths);
+		return endDate;
+	}*/
+	
+	    
+    /*public static String indexBasisConverter(String key){
+    	if(key==""){
+    		return "1W";
+    	}
+    	else if(key==""){
+    		return "1M";
+    	}
+    	else if(key==""){
+    		return "6Ms";
+    	}
+    	else if(key==""){
+    		return "12M";
+    	}
+    	else{
+    	    return (String)indexBasis.getDefaultValue();
+    	}
+    }*/
+    
+    //all about index basis
+    
+    	//indexBasis
+		/*JLabel indexBasisLabel=new JLabel("Index basis: Column number ");
+		indexBasisLabel.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		indexBasis.add(indexBasisLabel);
+		
+		jcbs[jcbCount]=new JCheckBox("");
+		indexBasis.add(jcbs[jcbCount]);
+		jcbCount++;
+				
+		jtfs[jtfCount]=new JTextField(4);//8
+		indexBasis.add(jtfs[jtfCount]);
+		jtfCount++;
+				
+		JLabel dataTypeLabel8=new JLabel(" data type: string ");
+		dataTypeLabel8.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		indexBasis.add(dataTypeLabel8);
+				
+		JLabel defaultValueLabel8=new JLabel(" default value ");
+		defaultValueLabel8.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		indexBasis.add(defaultValueLabel8);
+				
+		ArrayList<String> defaultValue8=new ArrayList<String>();
+
+		defaultValue8.add("1W");
+		defaultValue8.add("1M");
+		defaultValue8.add("2M");
+		defaultValue8.add("3M");
+		defaultValue8.add("4M");
+		defaultValue8.add("5M");
+		defaultValue8.add("6M");
+		defaultValue8.add("7M");
+		defaultValue8.add("8M");
+		defaultValue8.add("9M");
+		defaultValue8.add("10M");
+		defaultValue8.add("11M");
+		defaultValue8.add("12M");
+		jcs[jcCount]= new JComboBox<String>();
+		jcs[jcCount].setModel(new DefaultComboBoxModel(defaultValue8.toArray()));
+		jcs[jcCount].setSelectedItem("1M");
+		indexBasis.add(jcs[jcCount]);
+		jcCount++;
+				
+		//br
+		mainPanel.add(BorderLayout.WEST, indexBasis);
+		brs[brCount]= new JLabel("<html><br></html>");
+		mainPanel.add(brs[brCount]);
+		brCount++;*/
+		
+					
+		/*DataModel.setIndexBasis(new Feature(columnNumberConverter(jtfs[countJtf++].getText(), countJcb++), 
+			"String", (String)jcs[countJc++].getSelectedItem()));*/
+			
+		
+	/*public String getBasis() {
+		return basis;
+	}
+
+	public void setBasis(String basis) {
+		this.basis = basis;
+	}*/
+	
+	
+	//all about random method
+	
+	
+	//2 methods
+	//calcul method
+	//1st method: consider the default as a random event
+	/*public double calculInterest(double formerOS, double rate){
+		return formerOS*rate;
+	}
+
+	public double calculPrincipal(double formerOS, double rate, int nbPeriods, double prepaymentRate) throws Exception {
+		double principal=0;
+		double prepaymentRatePP=prepaymentRate/nbPeriodsPY;
+		formerOS*=(1-prepaymentRatePP);//take off the prepayment
+		
+		if(amortizationType=='A'){
+			principal= this.calculAnnuityPayoff(rate, formerOS, nbPeriods)-formerOS*rate;
+		}
+		if(amortizationType=='E'){
+			if(nbPeriods!=0){
+				principal=formerOS/nbPeriods;
+			}
+		}
+		if(amortizationType=='B'){
+			if(nbPeriods==1){//the last period
+				principal=formerOS;
+			}
+		}
+		
+		return principal;
+	}
+	
+
+	public double calculDefault(double OS, double DPPerYear){
+		
+		double DPPerPeriod=1-Math.pow((1-DPPerYear), 1/nbPeriodsPY);
+		
+		Random r=new Random();
+		int isDefault=0;
+		if(r.nextDouble()<DPPerPeriod){
+			isDefault=1;
+		}
+		return OS*isDefault;
+		//return principal*PD;
+	}*/
+	//end first method
+	
+	//calcul cashflow with random method
+	            
+    //the random default method 
+    /*tableauInterest[i] = method.calculInterest(tableauOutstanding[i-1], ratePP);
+    tableauPrincipal[i] = method.calculPrincipal(tableauOutstanding[i-1], ratePP, nbPeriods-i+2, prepaymentRate);
+    tableauDefault[i] = method.calculDefault(tableauOutstanding[i-1], DP);
+        	
+    if(tableauDefault[i]!=0){
+            	
+        tableauInterest[i] = 0;
+        tableauPrincipal[i] = 0;
+        //here we consider all the principals and interests are 0 once the loan defaults
+            	
+        for (int j=i+asset.getRecoveryProfile().getStartRecovery();j<=i+asset.getRecoveryProfile().getEndRecovery();j++){
+        	tableauRecovery[j] += method.calculRecovery(tableauDefault[i], LGD);//after x months
+        }//we delay the asset
+    }*/
+            
+	//models
+			
+		/*FitchDefaultModel=new RiskModel("Fitch Default");
+		FitchDefaultModel.getModelTable().put(DateCalcul.setIntDate(2017, 0, 1), 0.0048);
+		FitchDefaultModel.getModelTable().put(DateCalcul.setIntDate(2018, 0, 1), 0.0012);
+		FitchDefaultModel.getModelTable().put(DateCalcul.setIntDate(2020, 0, 1), 0.001);
+		models.add(FitchDefaultModel);
+		
+		FitchLGDModel=new RiskModel("Fitch LGD");
+		FitchLGDModel.getModelTable().put(DateCalcul.setIntDate(2017, 0, 1), 0.1384);
+		FitchLGDModel.getModelTable().put(DateCalcul.setIntDate(2018, 0, 1), 0.14);
+		FitchLGDModel.getModelTable().put(DateCalcul.setIntDate(2020, 0, 1), 0.1384);
+		models.add(FitchLGDModel);
+		
+		PSAModel=new RiskModel("PSA");
+		PSAModel.getModelTable().put(DateCalcul.setIntDate(2017, 0, 1), 0.0984);
+		PSAModel.getModelTable().put(DateCalcul.setIntDate(2018, 0, 1), 0.1);
+		PSAModel.getModelTable().put(DateCalcul.setIntDate(2020, 0, 1), 0.0984);
+		models.add(PSAModel);*/		
+		
+		
+	//differed payment profile: constructor
+		
+	/*public DifferedPaymentProfile(char type, Calendar endDate){
+		this.differFlag=true;
+		this.endDifferedDate=endDate;
+		this.differedType=type;
+	}
+	
+	public DifferedPaymentProfile(){//when the differed is not active
+		
+	}*/
+	
+	
+	//constructor calcul method
+		
+	/*private char amortizationType;
+	private RecoveryProfile recoveryProfile;
+	private double nbPeriodsPY;
+	
+	public CalculMethod(char amortizationType, RecoveryProfile recoveryProfile, double nbPeriodsPY){
+		this.setAmortizationType(amortizationType);
+		this.setRecoveryProfile(recoveryProfile);
+		this.nbPeriodsPY=nbPeriodsPY;
+	}
+	
+	
+	//getters and setters
+	public char getAmortizationType() {
+		return amortizationType;
+	}
+
+	public void setAmortizationType(char amortizationType) {
+		this.amortizationType = amortizationType;
+	}
+
+	public RecoveryProfile getRecoveryProfile() {
+		return recoveryProfile;
+	}
+
+	public void setRecoveryProfile(RecoveryProfile recoveryProfile) {
+		this.recoveryProfile = recoveryProfile;
+	}*/
+
+	//method=new CalculMethod(asset.getAmortizationType(), asset.getRecoveryProfile(), getNbPeriodsPY(asset));
+	
+	
+	//date transformation
+	
+	/*public void setStartDate(int year, int month, int day) {
+		this.startDate=new int[3];
+		startDate[0]=year;
+		startDate[1]=month;
+		startDate[2]=day;
+	}
+	
+	public void setStartDateInCalendar(Calendar startDate){
+		this.startDate=new int[3];
+		this.startDate[0]=startDate.get(Calendar.YEAR);
+		this.startDate[1]=startDate.get(Calendar.MONTH);
+		this.startDate[2]=startDate.get(Calendar.DAY_OF_MONTH);
+	}*/
+	
+	/*public void setEndDate(int year, int month, int day) {
+		this.endDate=new int[3];
+		endDate[0]=year;
+		endDate[1]=month;
+		endDate[2]=day;
+	}*/
+	
+	
+	/*public void setEndDateInCalendar(Calendar endDate){//calendar to int[]
+		this.endDate=new int[3];
+		this.endDate[0]=endDate.get(Calendar.YEAR);
+		this.endDate[1]=endDate.get(Calendar.MONTH);
+		this.endDate[2]=endDate.get(Calendar.DAY_OF_MONTH);
+	}*/
+	
+		
+	/*public Calendar getStartDateInCalendar(){
+		return new GregorianCalendar(startDate[0], startDate[1], startDate[2]);
+	}*/
+	
+		
+	/*public Calendar getEndDateInCalendar(){
+		return new GregorianCalendar(endDate[0], endDate[1], endDate[2]);
+	}*/
+	
+	//test if is the problem of importing models
+			
+		/*RiskModel myDM=new RiskModel("my DM");
+		myDM.getModelTable().put(DateCalcul.parseCalendar(new GregorianCalendar(2016, 0, 1)), 0.03 );
+		myDM.getModelTable().put(DateCalcul.parseCalendar(new GregorianCalendar(2017, 0, 1)), 0.04 );
+		myDM.getModelTable().put(DateCalcul.parseCalendar(new GregorianCalendar(2018, 0, 1)), 0.05 );
+		myDM.getModelTable().put(DateCalcul.parseCalendar(new GregorianCalendar(2019, 0, 1)), 0.06 );
+		models.add(myDM);*/
+		
+	//the change rate function
+		
+	/*public boolean changeRate(Calendar date, int cursor){
+		boolean flag=false;
+		if(rateType!='f'){
+			if(variableRates.size()>cursor && 
+			DateCalcul.compareTwoDates(date, changingDates.get(cursor))>=0){
+			//when the date is after the cursor date in the changing date list
+				rate=variableRates.get(cursor);
+				flag=true;
+		    }
+		}
+		
+		return flag;
+	}*/
+	
+	
+	/*while(asset.getInterestRateProfile().changeRate(tableauDate[i], interestCursor)){
+	    ratePP=CalculRatePP(Processing.getRateProperty(), asset.getInterestRateProfile().getRate(), asset);
+	    interestCursor++;
+	}//variation of interest rates*/
+	
+		        
+	/*while(asset.getPrepaymentProfile().changeRate(tableauDate[i], prepaymentCursor)){
+	    prepaymentRate=asset.getPrepaymentProfile().getRate();//annual prepayment rate, to be switched to prepayment rate per period
+	    prepaymentCursor++;
+	}//variation of prepayment rates*/
+	
+	
+	/*model.getModelTable().put(DateCalcul.parseCalendar(dateConverter(fileName, row[0], modelDateFormat)), 
+	doubleConverter(modelValueType, row[1]));//percentage or number*/
+	
+	
+	/*index.getIndexTable().put(DateCalcul.parseCalendar(dateConverter(fileName, row[0], indexDateFormat)), 
+	doubleConverter(indexValueType, row[1]));//percentage or number*/
+	
+	//set interest rate profile
+	/*ArrayList<Double> rateList=(ArrayList<Double>) index.getRateList().clone();//copy the index rate
+	for(double vr: rateList){
+		if(vr+margin>capLevel && (capFloorType=='c' || capFloorType=='C')){
+			vr=capLevel;
+		}
+		else if(vr+margin<floorLevel && (capFloorType=='f' || capFloorType=='C')){
+			vr=floorLevel;
+		}
+		else{
+			vr+=margin;
+		}
+	}
+	//we consider here the real variable rate=index rate + margin and it's limited by the cap and floor			
+	this.setVariableRates(rateList);*/
+	
+	
+	//dates before the data date are deleted, along with the rate values
+	/*while(DateCalcul.compareTwoDates(dataDate, this.getChangingDates().get(0))>0){
+		this.getChangingDates().remove(0);
+		this.getVariableRates().remove(0);
+	}*/
+			
+	//add initial rate
+	/*this.getChangingDates().add(0, DateCalcul.parseCalendar(dataDate));
+	this.getVariableRates().add(0, initialRate);//the first element is the rate given in the file*/
+	
+	//no need to 
+	/*this.getChangingDates().add(0, DateCalcul.parseCalendar(dataDate));
+	this.getVariableRates().add(0, rate);//the first element is the rate given in the file*/
+	
+			
+		/*if(type=='F'){//F for fixed to floating
+
+			this.index=index;
+			
+			//set date list
+			this.setChangingDates(new ArrayList<int[]>());
+			
+			//set rate list
+			this.setVariableRates(new ArrayList<Double>());
+			this.cap=capLevel;
+			this.floor=floorLevel;
+			this.margin=margin;
+			this.capFloorType=capFloorType;
+			
+			//before fixed after refer to the index
+			this.getChangingDates().add(DateCalcul.parseCalendar(dataDate));
+			this.getVariableRates().add(initialRate);
+
+			//only take index values AFTER the fixed to floating date
+			for(int i=0;i<index.getDateList().size();i++){
+				if(DateCalcul.compareTwoDates(fixedToFloatingDate, index.getDateList().get(i))<=0){
+					this.getChangingDates().add(index.getDateList().get(i));
+					this.getVariableRates().add(index.getRateList().get(i));
+				}
+			}
+
+
+		}*/
+		
+					
+		/*//set date list
+		this.setChangingDates(index.getDateList());
+			
+		//set rate list
+		this.setVariableRates(index.getRateList());*/
+		
+		
+	/*public ArrayList<int[]> getChangingDates() {
+		return changingDates;
+	}
+
+	public ArrayList<Double> getVariableRates() {
+		return variableRates;
+	}
+
+	public void setVariableRates(ArrayList<Double> rates) {
+		this.variableRates = rates;
+	}
+
+	public void setChangingDates(ArrayList<int[]> changingDates) {
+		this.changingDates = changingDates;
+	}*/
+		
+	
+	/*public ArrayList<int[]> getDateList() {
+		return dateList;
+	}
+
+	public void setDateList(ArrayList<int[]> dateList) {
+		this.dateList = dateList;
+	}
+
+	public ArrayList<Double> getRateList() {
+		return rateList;
+	}
+
+	public void setRateList(ArrayList<Double> rateList) {
+		this.rateList = rateList;
+	}*/
+	
+	
+	
+        /*for(int i=1;i<inputDataTable.size();i++){//avoid the header
+        	
+        	//avoid index out of range exception
+        	//if the last columns are empty, the length will be shorter, the last cells will be null
+        	
+        	String[] row=new String[nbOfColumns];//user can set the number of columns
+        	for(int j=0;j<inputDataTable.get(i).length;j++){
+        		row[j]=inputDataTable.get(i)[j];
+        	}
+        	for(int j=inputDataTable.get(i).length;j<nbOfColumns;j++){
+        		row[j]="";
+        	}
+            
+            port.add(new Asset());
+            getLastAsset(port).setAsset(row, dataDate, currency);
+                	
+        }//end loop  */
+        
+        
+              
+    	//port=new ArrayList<Asset>();//create a portfolio: an asset list
+    	//String[] row=new String[nbOfColumns];//user can set the number of columns
+
+        //get data from the file
+        
+        
+
+	/*//step import
+	public static void importAFile() throws Exception{
+        
+        long start = System.currentTimeMillis();
+        
+        //try different readers adapting to different formats
+
+        //read excel file
+        if(fileType.endsWith("xlsx")||fileType.endsWith("xlsm")){
+        	ExcelFileReader reader= new ExcelFileReader(filePath);
+            inputDataTable=reader.readRows(1000000);//max: read 1000000 rows
+        }
+        
+        else if(fileType.endsWith("xls")){
+        	inputDataTable=XlsReader.readXLSFile(filePath);
+        }
+        
+        //read txt file
+        else if(fileType.endsWith("txt")){//read txt
+        	txtReader reader=new txtReader(filePath);
+        	inputDataTable=reader.readTxtFiles(delimiter);
+        }
+        
+        //read csv file
+        else if(fileType.endsWith("csv")){//read csv
+        	csvReader reader=new csvReader(filePath);
+        	inputDataTable=reader.readCsvFiles(delimiter);
+        }
+        
+        else{
+        	throw new Exception("bad file!");
+        }
+        
+        System.out.println("successfully imported");
+        long end = System.currentTimeMillis();
+        double importingTime = ((double)end - (double)start)/1000;
+        System.out.println("The importing time is: " + importingTime +"s");
+        
+    }*/
+    
+    
+    		
+		/*//import input file button
+		else if(ae.getSource()==importer){
+			try {
+				warningImport.setText("");
+					
+				Processing.importAFile();
+				//Processing.importReferences();
+
+				warningImport.setText("      files successfully imported, please set portfolio");
+				warningImport.setFont(new Font("MS UI Gothic", Font.PLAIN, 16));
+				warningImport.setForeground(Color.BLACK);
+				anotherPanel.add(warningImport, BorderLayout.CENTER);
+			    mainFrame.setVisible(true); 
+			        
+			    filesImported=true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("fail to import the file!");
+				System.exit(0);
+			}
+
+		}*/
+		
+		
+					/*if(filesImported){
+				try {
+					warningImport.setText("");
+					warningSetting.setText("");
+
+					Processing.setPorfolio();
+
+					warningSetting.setText("      portfolio successfully set, ready to run!");
+					warningSetting.setFont(new Font("MS UI Gothic", Font.PLAIN, 16));
+					warningSetting.setForeground(Color.BLACK);
+					anotherPanel.add(warningSetting, BorderLayout.CENTER);
+				    mainFrame.setVisible(true); 
+				        
+				    portfolioSet=true;
+						
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("fail to set the features of the portfolio!");
+					System.exit(0);
+				}
+			}
+			else{
+				warningImport.setText("      please set the asset features first!");
+				warningImport.setFont(new Font("MS UI Gothic", Font.PLAIN, 16));
+				warningImport.setForeground(Color.RED);
+				anotherPanel.add(warningImport, BorderLayout.CENTER);
+			    mainFrame.setVisible(true); 
+			}*/
+			
+			
+		for(RiskModel model: References.getModels()){
+			defaultValue3.add(model.getModelName());
+		}
+		
+		
+    public csvReader(String filePath){
+          this.filePath=filePath;
+    }
+    
+    this.interestRateProfile=new InterestRateProfile(
+	DataModel.rateTypeConverter(dataRow[DataModel.getRateType().getColumnNumber()], dataRow[DataModel.getFixedToFloatingDate().getColumnNumber()]),//rate type
+    DataModel.doubleConverter(DataModel.getAnnualRate(), dataRow[DataModel.getAnnualRate().getColumnNumber()]), //fixed rate
+    DataModel.capFloorTypeConverter(dataRow[DataModel.getCapFloorType().getColumnNumber()]), //cap floor type
+    DataModel.doubleConverter(DataModel.getCapLevel(), dataRow[DataModel.getCapLevel().getColumnNumber()]), //cap level
+    DataModel.doubleConverter(DataModel.getFloorLevel(), dataRow[DataModel.getFloorLevel().getColumnNumber()]), //floor level
+    DataModel.doubleConverter(DataModel.getMargin(), dataRow[DataModel.getMargin().getColumnNumber()]), //margin
+    ReferenceOps.searchIndex(DataModel.indexNameConverter(dataRow[DataModel.getIndexName().getColumnNumber()]), Processing.getCurrency()), //index: index name & currency
+    DataModel.dateConverter(DataModel.getFixedToFloatingDate(), dataRow[DataModel.getFixedToFloatingDate().getColumnNumber()]));//fixed to floating date
+        
+    this.defaultProfile=new RiskProfile(
+	DataModel.DPRateTypeConverter(dataRow[DataModel.getDPRateType().getColumnNumber()]), //DP rate type
+	DataModel.doubleConverter(DataModel.getDefaultRate(), dataRow[DataModel.getDefaultRate().getColumnNumber()]), //DP rate
+	ReferenceOps.searchModel(DataModel.DPModelNameConverter(dataRow[DataModel.getDPModelName().getColumnNumber()]))); //model
+    	
+	this.LGDProfile=new RiskProfile(
+	DataModel.LGDRateTypeConverter(dataRow[DataModel.getLGDRateType().getColumnNumber()]), //LGD rate type
+	DataModel.doubleConverter(DataModel.getLGDRate(), dataRow[DataModel.getLGDRate().getColumnNumber()]), //LGD rate
+	ReferenceOps.searchModel(DataModel.LGDModelNameConverter(dataRow[DataModel.getLGDModelName().getColumnNumber()])));//model
+    
+    this.prepaymentProfile=new RiskProfile(
+	DataModel.prepaymentRateTypeConverter(dataRow[DataModel.getPrepaymentRateType().getColumnNumber()]), //prepayment type
+	DataModel.doubleConverter(DataModel.getPrepaymentRate(), dataRow[DataModel.getPrepaymentRate().getColumnNumber()]), //prepayment rate
+	ReferenceOps.searchModel(DataModel.prepaymentModelNameConverter(dataRow[DataModel.getPrepaymentModelName().getColumnNumber()])));//model
+    
+    
+    
+	/*public RiskProfile(char type, double rate, RiskModel model) {
+		super(type);
+
+		
+		if(type!='f'){//for floating rate (or custom), represent the rates in its model
+			this.model=model;
+		}
+		
+	}*/
+	
+	
+	
+	/*public InterestRateProfile(char type, double initialRate, char capFloorType, double capLevel, 
+			double floorLevel, double margin, Index index, Calendar fixedToFloatingDate) {
+		super(type);
+		
+		this.setRate(initialRate);	
+		
+		if(type!='f'){//if it's not fixed
+			this.index=index;
+
+			this.cap=capLevel;
+			this.floor=floorLevel;
+			this.margin=margin;
+			this.capFloorType=capFloorType;
+			
+			if(type=='F'){
+				this.fixedToFloatingDate=DateCalcul.parseCalendar(fixedToFloatingDate);
+			}
+		}
+
+	}*/
+	
+	
+	//this.assetType=DataModel.assetTypeConverter(dataRow[DataModel.getAssetType().getColumnNumber()]);//asset type
+	        
+    //this.daycount=DataModel.intConverter(DataModel.getDaycount(), dataRow[DataModel.getDaycount().getColumnNumber()]);//date count*
+    
+            /*//asset type
+		JLabel assetTypeLabel=new JLabel("Asset type");
+		assetTypeLabel.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		assetTypeLabel.setPreferredSize(nameSize);
+		labCnst.gridx = 0;
+        labCnst.gridy++;
+        mainPanel.add(assetTypeLabel, labCnst);
+        
+        JPanel assetTypeCN=new JPanel(new FlowLayout());
+        
+        jcbs[jcbCount]=new JCheckBox("");//0
+        assetTypeCN.add(jcbs[jcbCount]);
+        jcbCount++;
+        
+        jtfs[jtfCount]=new JTextField(4);//0
+        assetTypeCN.add(jtfs[jtfCount]);
+		jtfCount++;
+		
+		labCnst.gridx++;
+		mainPanel.add(assetTypeCN, labCnst);
+		
+		JLabel assetTypeT=new JLabel("string");
+		assetTypeT.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		assetTypeT.setPreferredSize(typeSize);
+		labCnst.gridx++;
+		mainPanel.add(assetTypeT, labCnst);
+		
+		ArrayList<String> assetTypeDV=new ArrayList<String>();
+		assetTypeDV.add("loan");
+		assetTypeDV.add("bond");
+		assetTypeDV.add("mortgage");
+		jcs[jcCount]= new JComboBox<String>();//0
+		jcs[jcCount].setModel(new DefaultComboBoxModel(assetTypeDV.toArray()));
+		labCnst.gridx++;
+		mainPanel.add(jcs[jcCount], labCnst);
+		jcCount++;*/
+		
+		
+		/*//day count
+		JLabel daycountLabel=new JLabel("Day count");
+		daycountLabel.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		daycountLabel.setPreferredSize(nameSize);
+		labCnst.gridx = 0;
+        labCnst.gridy++;
+        mainPanel.add(daycountLabel, labCnst);
+        
+        JPanel daycountCN=new JPanel(new FlowLayout());
+        
+        jcbs[jcbCount]=new JCheckBox("");//4
+        daycountCN.add(jcbs[jcbCount]);
+        jcbCount++;
+        
+        jtfs[jtfCount]=new JTextField(4);//11
+        daycountCN.add(jtfs[jtfCount]);
+		jtfCount++;
+		
+		labCnst.gridx++;
+		mainPanel.add(daycountCN, labCnst);
+		
+		JLabel daycountT=new JLabel("int");
+		daycountT.setFont(new Font("MS UI Gothic", Font.PLAIN, 14));
+		daycountT.setPreferredSize(typeSize);
+		labCnst.gridx++;
+		mainPanel.add(daycountT, labCnst);
+		
+		jtfs[jtfCount]=new JTextField(4);//12
+		labCnst.gridx++;
+		mainPanel.add(jtfs[jtfCount], labCnst);
+		jtfCount++;*/
+		
+		    
+    //L for loan
+    //B for bond
+    public static char assetTypeConverter(String key){
+    	if(key.contentEquals("1")){//to be defined by user
+    		return 'L';
+    	}
+    	else if(key.contentEquals("2")){
+    		return 'B';
+    	}
+
+    	else{
+    	    return (char)assetType.getDefaultValue();
+    	}
+    }
+		
